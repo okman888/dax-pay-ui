@@ -62,6 +62,16 @@ export function merchantCountReport(params) {
 }
 
 /**
+ * 提现记录信息统计
+ */
+export function withdrawTradeReport(params) {
+  return defHttp.get<Result<TradeReportResult>>({
+    url: '/admin/report/index/withdraw',
+    params,
+  })
+}
+
+/**
  * 交易统计报表
  */
 export function tradeStatisticsReport(params) {

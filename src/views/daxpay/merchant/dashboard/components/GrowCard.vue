@@ -1,130 +1,109 @@
 <template>
   <div class="grow-card-wrapper">
     <a-row :gutter="[16, 16]">
-      <!-- 支付订单卡片 -->
-      <a-col :xs="24" :sm="12" :lg="6">
-        <div class="stat-card stat-card--blue">
-          <div class="stat-card__icon">
-            <Icon icon="shopping-cart-outlined" :size="32" />
-          </div>
-          <div class="stat-card__content">
-            <div class="stat-card__title">支付订单数</div>
-            <div class="stat-card__value">
-              <CountTo :startVal="0" :endVal="payData.tradeCount || 0" />
+      <!-- 左侧统计卡片区域 -->
+      <a-col :xs="24" :sm="24" :md="24" :lg="16">
+        <a-row :gutter="[16, 16]">
+          <!-- 第1行：支付订单数、支付订单金额 -->
+          <!-- 支付订单数 -->
+          <a-col :xs="12" :sm="12" :md="12" :lg="12">
+            <div class="stat-card stat-card--blue">
+              <div class="stat-card__icon">
+                <Icon icon="shopping-cart-outlined" :size="28" />
+              </div>
+              <div class="stat-card__content">
+                <div class="stat-card__title">支付订单数</div>
+                <div class="stat-card__value">
+                  <CountTo :startVal="0" :endVal="payData.tradeCount || 0" />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </a-col>
+
+          <!-- 支付订单金额 -->
+          <a-col :xs="12" :sm="12" :md="12" :lg="12">
+            <div class="stat-card stat-card--purple">
+              <div class="stat-card__icon">
+                <Icon icon="money-collect-outlined" :size="28" />
+              </div>
+              <div class="stat-card__content">
+                <div class="stat-card__title">支付订单金额</div>
+                <div class="stat-card__value">
+                  <span class="stat-card__prefix">¥</span>
+                  <CountTo :startVal="0" :endVal="payData.tradeAmount || 0" :precision="2" />
+                </div>
+              </div>
+            </div>
+          </a-col>
+
+          <!-- 第2行：退款订单数、退款订单金额 -->
+          <!-- 退款订单数 -->
+          <a-col :xs="12" :sm="12" :md="12" :lg="12">
+            <div class="stat-card stat-card--red">
+              <div class="stat-card__icon">
+                <Icon icon="rollback-outlined" :size="28" />
+              </div>
+              <div class="stat-card__content">
+                <div class="stat-card__title">退款订单数</div>
+                <div class="stat-card__value">
+                  <CountTo :startVal="0" :endVal="refundData.tradeCount || 0" />
+                </div>
+              </div>
+            </div>
+          </a-col>
+
+          <!-- 退款订单金额 -->
+          <a-col :xs="12" :sm="12" :md="12" :lg="12">
+            <div class="stat-card stat-card--pink">
+              <div class="stat-card__icon">
+                <Icon icon="retweet-outlined" :size="28" />
+              </div>
+              <div class="stat-card__content">
+                <div class="stat-card__title">退款订单金额</div>
+                <div class="stat-card__value">
+                  <span class="stat-card__prefix">¥</span>
+                  <CountTo :startVal="0" :endVal="refundData.tradeAmount || 0" :precision="2" />
+                </div>
+              </div>
+            </div>
+          </a-col>
+
+          <!-- 第3行：提现订单数、提现金额 -->
+          <!-- 提现订单数 -->
+          <a-col :xs="12" :sm="12" :md="12" :lg="12">
+            <div class="stat-card stat-card--cyan">
+              <div class="stat-card__icon">
+                <Icon icon="transaction-outlined" :size="28" />
+              </div>
+              <div class="stat-card__content">
+                <div class="stat-card__title">提现订单数</div>
+                <div class="stat-card__value">
+                  <CountTo :startVal="0" :endVal="withdrawData.tradeCount || 0" />
+                </div>
+              </div>
+            </div>
+          </a-col>
+
+          <!-- 提现金额 -->
+          <a-col :xs="12" :sm="12" :md="12" :lg="12">
+            <div class="stat-card stat-card--orange">
+              <div class="stat-card__icon">
+                <Icon icon="minus-circle-outlined" :size="28" />
+              </div>
+              <div class="stat-card__content">
+                <div class="stat-card__title">提现金额</div>
+                <div class="stat-card__value">
+                  <span class="stat-card__prefix">¥</span>
+                  <CountTo :startVal="0" :endVal="withdrawData.tradeAmount || 0" :precision="2" />
+                </div>
+              </div>
+            </div>
+          </a-col>
+        </a-row>
       </a-col>
 
-      <!-- 订单金额卡片 -->
-      <a-col :xs="24" :sm="12" :lg="6">
-        <div class="stat-card stat-card--purple">
-          <div class="stat-card__icon">
-            <Icon icon="money-collect-outlined" :size="32" />
-          </div>
-          <div class="stat-card__content">
-            <div class="stat-card__title">订单金额</div>
-            <div class="stat-card__value">
-              ¥ <CountTo :startVal="0" :endVal="payData.tradeAmount || 0" :precision="2" />
-            </div>
-          </div>
-        </div>
-      </a-col>
-
-      <!-- 应到账金额卡片 -->
-      <a-col :xs="24" :sm="12" :lg="6">
-        <div class="stat-card stat-card--green">
-          <div class="stat-card__icon">
-            <Icon icon="wallet-outlined" :size="32" />
-          </div>
-          <div class="stat-card__content">
-            <div class="stat-card__title">应到账金额</div>
-            <div class="stat-card__value">
-              ¥ <CountTo :startVal="0" :endVal="payData.receivableAmount || 0" :precision="2" />
-            </div>
-          </div>
-        </div>
-      </a-col>
-
-      <!-- 最大单笔金额卡片 -->
-      <a-col :xs="24" :sm="12" :lg="6">
-        <div class="stat-card stat-card--orange">
-          <div class="stat-card__icon">
-            <Icon icon="rise-outlined" :size="32" />
-          </div>
-          <div class="stat-card__content">
-            <div class="stat-card__title">最大单笔金额</div>
-            <div class="stat-card__value">
-              ¥ <CountTo :startVal="0" :endVal="payData.maxAmount || 0" :precision="2" />
-            </div>
-          </div>
-        </div>
-      </a-col>
-
-      <!-- 提现笔数卡片 -->
-      <a-col :xs="24" :sm="12" :lg="6">
-        <div class="stat-card stat-card--cyan">
-          <div class="stat-card__icon">
-            <Icon icon="transaction-outlined" :size="32" />
-          </div>
-          <div class="stat-card__content">
-            <div class="stat-card__title">提现笔数</div>
-            <div class="stat-card__value">
-              <CountTo :startVal="0" :endVal="withdrawData.tradeCount || 0" />
-            </div>
-          </div>
-        </div>
-      </a-col>
-
-      <!-- 提现金额卡片 -->
-      <a-col :xs="24" :sm="12" :lg="6">
-        <div class="stat-card stat-card--pink">
-          <div class="stat-card__icon">
-            <Icon icon="minus-circle-outlined" :size="32" />
-          </div>
-          <div class="stat-card__content">
-            <div class="stat-card__title">提现金额</div>
-            <div class="stat-card__value">
-              ¥ <CountTo :startVal="0" :endVal="withdrawData.tradeAmount || 0" :precision="2" />
-            </div>
-          </div>
-        </div>
-      </a-col>
-
-      <!-- 退款订单数卡片 -->
-      <a-col :xs="24" :sm="12" :lg="6">
-        <div class="stat-card stat-card--red">
-          <div class="stat-card__icon">
-            <Icon icon="rollback-outlined" :size="32" />
-          </div>
-          <div class="stat-card__content">
-            <div class="stat-card__title">退款订单数</div>
-            <div class="stat-card__value">
-              <CountTo :startVal="0" :endVal="refundData.tradeCount || 0" />
-            </div>
-          </div>
-        </div>
-      </a-col>
-
-      <!-- 退款金额卡片 -->
-      <a-col :xs="24" :sm="12" :lg="6">
-        <div class="stat-card stat-card--indigo">
-          <div class="stat-card__icon">
-            <Icon icon="retweet-outlined" :size="32" />
-          </div>
-          <div class="stat-card__content">
-            <div class="stat-card__title">退款金额</div>
-            <div class="stat-card__value">
-              ¥ <CountTo :startVal="0" :endVal="refundData.tradeAmount || 0" :precision="2" />
-            </div>
-          </div>
-        </div>
-      </a-col>
-    </a-row>
-
-    <!-- 通知公告区域 -->
-    <a-row :gutter="[16, 16]" style="margin-top: 16px">
-      <a-col :span="24">
+      <!-- 右侧通知公告区域 -->
+      <a-col :xs="24" :sm="24" :md="24" :lg="8">
         <div class="notice-card">
           <div class="notice-card__header">
             <Icon icon="bell-outlined" :size="20" />
@@ -142,17 +121,17 @@
     </a-row>
   </div>
 </template>
+
 <script lang="ts" setup>
   import { CountTo } from '@/components/CountTo'
   import { Icon } from '@/components/Icon'
   import { reactive, ref, watch } from 'vue'
-  import { MerchantStatusEnum } from '@/enums/daxpay/daxpayEnum'
-  import { payTradeReport, rfdTradeReport, withdrawTradeReport, TradeReportResult, getShopInfo } from '../IndexRepot.api'
+  import { payTradeReport, rfdTradeReport, withdrawTradeReport, TradeReportResult } from '../IndexRepot.api'
 
   const props = defineProps({
     dateObj: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
   })
 
@@ -164,7 +143,6 @@
   const payData = ref<TradeReportResult>({})
   const refundData = ref<TradeReportResult>({})
   const withdrawData = ref<TradeReportResult>({})
-  const infoData = ref<any>({})
 
   //监听查询标识 重新查询
   watch(
@@ -196,11 +174,9 @@
     withdrawTradeReport(query).then(({ data }) => {
       withdrawData.value = data
     })
-    getShopInfo().then(({ data }) => {
-      infoData.value = data
-    })
   }
 </script>
+
 <style lang="scss" scoped>
   .grow-card-wrapper {
     width: 100%;
@@ -211,12 +187,13 @@
     position: relative;
     display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 20px 16px;
     border-radius: 12px;
     background: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     transition: all 0.3s ease;
     overflow: hidden;
+    height: 100px;
 
     &::before {
       content: '';
@@ -228,34 +205,47 @@
     }
 
     &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
 
     &__icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-      margin-right: 16px;
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      margin-right: 14px;
+      flex-shrink: 0;
     }
 
     &__content {
       flex: 1;
+      min-width: 0;
     }
 
     &__title {
-      font-size: 14px;
+      font-size: 13px;
       color: #86909c;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &__value {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 600;
       color: #1d2129;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__prefix {
+      font-size: 16px;
+      margin-right: 2px;
     }
 
     // 蓝色主题
@@ -277,17 +267,6 @@
       .stat-card__icon {
         background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
         color: #9333ea;
-      }
-    }
-
-    // 绿色主题
-    &--green {
-      &::before {
-        background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
-      }
-      .stat-card__icon {
-        background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-        color: #16a34a;
       }
     }
 
@@ -334,17 +313,6 @@
         color: #dc2626;
       }
     }
-
-    // 靛青主题
-    &--indigo {
-      &::before {
-        background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);
-      }
-      .stat-card__icon {
-        background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-        color: #4f46e5;
-      }
-    }
   }
 
   // 通知公告卡片
@@ -353,6 +321,9 @@
     border-radius: 12px;
     background: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    height: calc((100px + 16px) * 3 - 16px);
+    display: flex;
+    flex-direction: column;
 
     &__header {
       display: flex;
@@ -369,7 +340,7 @@
     }
 
     &__content {
-      max-height: 200px;
+      flex: 1;
       overflow-y: auto;
     }
   }
@@ -417,138 +388,14 @@
 
   // 响应式设计
   @media (max-width: 1200px) {
-      .common_title {
-        padding-left: 14px;
-        font-size: 16px;
-
-        &::before {
-          width: 3px;
-          height: 15px;
-          border-radius: 0 8px 8px 0;
-        }
-      }
-
-      .orderTop {
-        height: 120px;
-        padding: 20px 16px;
-        border-radius: 8px;
-
-        .logoBox img {
-          height: 56px;
-        }
-
-        .boxTitle {
-          margin-left: 18px;
-
-          .title {
-            font-size: 20px;
-          }
-
-          .info {
-            width: 420px;
-
-            .info_item {
-              margin-top: 8px;
-              font-size: 14px;
-            }
-          }
-        }
-      }
-
-      .orderLeft {
-        height: 480px;
-        border-radius: 8px;
-
-        .left_item {
-          padding: 16px 0;
-          border-radius: 8px;
-          gap: 12px;
-
-          .content_box {
-            padding: 0 14px;
-            gap: 14px;
-
-            .content_item {
-              padding: 10px 12px;
-              border-radius: 8px;
-
-              .left {
-                gap: 12px;
-
-                .title {
-                  font-size: 18px;
-                }
-
-                .number {
-                  font-size: 30px;
-                }
-              }
-
-              .right img {
-                width: 45px;
-                height: 45px;
-              }
-            }
-          }
-        }
-      }
-
-      .orderRight {
-        height: 480px;
-        padding: 22px 0 8px;
-        border-radius: 8px;
-        gap: 11px;
-
-        .adverse_content {
-          height: calc(100% - 40px);
-          padding: 0 16px;
-
-          .adverse_item {
-            margin-bottom: 5px;
-            font-size: 12px;
-            gap: 16px;
-
-            .date {
-              width: 65px;
-            }
-          }
-        }
-      }
-    }
-
-    @media (max-width: 1200px) {
     .stat-card {
-      padding: 16px;
+      padding: 16px 14px;
+      height: 90px;
 
       &__icon {
-        width: 48px;
-        height: 48px;
+        width: 46px;
+        height: 46px;
         margin-right: 12px;
-      }
-
-      &__title {
-        font-size: 13px;
-      }
-
-      &__value {
-        font-size: 20px;
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    .stat-card {
-      padding: 14px;
-
-      &__icon {
-        width: 44px;
-        height: 44px;
-        margin-right: 10px;
-
-        svg {
-          width: 24px;
-          height: 24px;
-        }
       }
 
       &__title {
@@ -556,12 +403,67 @@
       }
 
       &__value {
-        font-size: 18px;
+        font-size: 20px;
+      }
+
+      &__prefix {
+        font-size: 14px;
       }
     }
 
     .notice-card {
       padding: 16px;
+      height: calc((90px + 16px) * 3 - 16px);
+
+      &__header {
+        font-size: 14px;
+      }
+    }
+
+    .notice-item {
+      &__text {
+        font-size: 13px;
+      }
+
+      &__date {
+        font-size: 11px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stat-card {
+      padding: 14px 12px;
+      height: 80px;
+
+      &__icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+
+        svg {
+          width: 22px;
+          height: 22px;
+        }
+      }
+
+      &__title {
+        font-size: 11px;
+      }
+
+      &__value {
+        font-size: 18px;
+      }
+
+      &__prefix {
+        font-size: 13px;
+      }
+    }
+
+    .notice-card {
+      padding: 14px;
+      height: auto;
+      min-height: 300px;
 
       &__header {
         font-size: 14px;
@@ -572,7 +474,7 @@
       padding: 10px 0;
 
       &__text {
-        font-size: 13px;
+        font-size: 12px;
       }
 
       &__date {
