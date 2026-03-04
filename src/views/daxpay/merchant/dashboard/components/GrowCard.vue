@@ -30,7 +30,7 @@
                 <div class="stat-card__title">支付订单金额</div>
                 <div class="stat-card__value">
                   <span class="stat-card__prefix">¥</span>
-                  <CountTo :startVal="0" :endVal="payData.tradeAmount || 0" :precision="2" />
+                  <CountTo :startVal="0" :endVal="payData.tradeAmount || 0" :decimals="2" />
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@
                 <div class="stat-card__title">退款订单金额</div>
                 <div class="stat-card__value">
                   <span class="stat-card__prefix">¥</span>
-                  <CountTo :startVal="0" :endVal="refundData.tradeAmount || 0" :precision="2" />
+                  <CountTo :startVal="0" :endVal="refundData.tradeAmount || 0" :decimals="2" />
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@
                 <div class="stat-card__title">提现金额</div>
                 <div class="stat-card__value">
                   <span class="stat-card__prefix">¥</span>
-                  <CountTo :startVal="0" :endVal="withdrawData.tradeAmount || 0" :precision="2" />
+                  <CountTo :startVal="0" :endVal="withdrawData.tradeAmount || 0" :decimals="2" />
                 </div>
               </div>
             </div>

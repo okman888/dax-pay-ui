@@ -159,7 +159,20 @@
     userId: [{ required: true, message: '请选择渠道商户', trigger: 'change' }],
     amount: [
       { required: true, message: '请输入提现金额', trigger: 'blur' },
-      { type: 'number', min: 10, message: '提现金额必须大于10', trigger: 'blur' },
+      { type: 'number', min: 0.01, message: '提现金额必须大于0.01', trigger: 'blur' },
+      {
+        validator: (rule, value) => {
+          if (!value || !userInfo.receivedBalance) {
+            return Promise.resolve()
+          }
+          const maxAmount = parseFloat(userInfo.receivedBalance)
+          if (parseFloat(value) > maxAmount) {
+            return Promise.reject(`提现金额不能大于到账余额（${maxAmount}元）`)
+          }
+          return Promise.resolve()
+        },
+        trigger: 'blur',
+      },
     ],
     mchNo: [{ required: true, message: '请输入商户号', trigger: 'blur' }],
   }
@@ -250,7 +263,7 @@
       userInfo.statusDesc = statusMap[data.status] || data.status
 
       // 设置默认提现金额为可用余额
-      withdrawForm.amount = userInfo.balance
+      withdrawForm.amount = userInfo.receivedBalance
 
       message.success('查询用户信息成功')
     } catch (error) {
