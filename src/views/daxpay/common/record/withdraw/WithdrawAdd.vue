@@ -51,7 +51,7 @@
             </a-input>
           </a-form-item>
 
-          <!-- <a-form-item label="到账余额">
+          <a-form-item label="到账余额">
             <a-input v-model:value="userInfo.receivedBalance" disabled>
               <template #addonAfter>元</template>
             </a-input>
@@ -67,7 +67,7 @@
             <a-input v-model:value="userInfo.frozenAmount" disabled>
               <template #addonAfter>元</template>
             </a-input>
-          </a-form-item> -->
+          </a-form-item>
 
           <a-form-item label="用户类型">
             <a-input v-model:value="userInfo.userTypeDesc" disabled />
@@ -224,9 +224,9 @@
       userInfo.userName = data.userName
       userInfo.userId = data.userId
       userInfo.balance = (parseInt(data.balance) / 100).toFixed(2)
-      //userInfo.receivedBalance = (parseInt(data.receivedBalance) / 100).toFixed(2)
-      //userInfo.receivableBalance = (parseInt(data.receivableBalance) / 100).toFixed(2)
-      //userInfo.frozenAmount = (parseInt(data.frozenAmount) / 100).toFixed(2)
+      userInfo.receivedBalance = (parseInt(data.receivedBalance) / 100).toFixed(2)
+      userInfo.receivableBalance = (parseInt(data.receivableBalance) / 100).toFixed(2)
+      userInfo.frozenAmount = (parseInt(data.frozenAmount) / 100).toFixed(2)
       userInfo.userType = data.userType
       userInfo.status = data.status
 
