@@ -173,6 +173,8 @@ export interface PayOrder extends MchEntity {
   errorCode?: string
   // 错误信息
   errorMsg?: string
+  // 服务费率
+  feeRate?: number
 }
 
 /**

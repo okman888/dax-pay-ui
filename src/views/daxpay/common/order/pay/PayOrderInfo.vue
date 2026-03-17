@@ -72,6 +72,27 @@
           </div>
         </a-col>
       </a-row>
+      <a-row :gutter="[16, 24]">
+        <a-col class="gutter-row" :span="8">
+          <div class="gutterItem">
+            <div class="leftTitle">费率</div>
+            <div class="rightContent">
+              {{ order.feeRate !== null && order.feeRate !== undefined ? order.feeRate + '%' : '无' }}
+            </div>
+          </div>
+        </a-col>
+        <a-col class="gutter-row" :span="8">
+          <div class="gutterItem">
+            <div class="leftTitle">费用(元)</div>
+            <div class="rightContent">
+              <span v-if="order.feeRate !== null && order.feeRate !== undefined && order.amount !== null && order.amount !== undefined">
+                {{ (order.amount * order.feeRate / 100).toFixed(2) }}
+              </span>
+              <span v-else>无</span>
+            </div>
+          </div>
+        </a-col>
+      </a-row>
       <a-divider />
       <a-row :gutter="[16, 24]">
         <a-col class="gutter-row" :span="24">

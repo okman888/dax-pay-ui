@@ -23,6 +23,16 @@
                   <span class="label">所属服务商：</span>
                   <span class="value">{{ merchantInfo.isvName }}</span>
                 </div>
+                <div class="detail-item">
+                  <span class="label">费率：</span>
+                  <span class="value" v-if="feeSetting.feeRate !== undefined && feeSetting.feeRate !== null">
+                    {{ feeSetting.feeRate }}%
+                    <a-tag :color="feeSetting.status === 'ENABLED' ? 'green' : 'red'" style="margin-left: 8px">
+                      {{ feeSetting.status === 'ENABLED' ? '启用' : '禁用' }}
+                    </a-tag>
+                  </span>
+                  <span class="value" v-else style="color: #9ca3af">暂未设置</span>
+                </div>
               </div>
             </div>
           </a-col>
@@ -120,7 +130,7 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue'
   import { Merchant } from '@/views/daxpay/admin/merchant/info/Merchant.api'
-  import { get } from './MerchantInfo.api'
+  import { get, getFeeSetting, FeeSetting } from './MerchantInfo.api'
   import { useMessage } from '@/hooks/web/useMessage'
   import Icon from '@/components/Icon/Icon.vue'
   import useTablePage from '@/hooks/bootx/useTablePage'
@@ -137,6 +147,7 @@
   const { dictConvert } = useDict()
 
   let merchantInfo = ref<Merchant>({})
+  let feeSetting = ref<FeeSetting>({})
   let edit = ref(false)
 
   // 应用相关的refs
@@ -159,6 +170,9 @@
     edit.value = false
     get().then(({ data }) => {
       merchantInfo.value = data
+    })
+    getFeeSetting().then(({ data }) => {
+      feeSetting.value = data || {}
     })
   }
 

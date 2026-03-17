@@ -60,6 +60,20 @@
               {{ row.refundableBalance }}
             </template>
           </vxe-column>
+          <vxe-column field="feeRate" title="费率" :min-width="90" align="center">
+            <template #default="{ row }">
+              <span v-if="row.feeRate !== null && row.feeRate !== undefined">{{ row.feeRate }}%</span>
+              <span v-else style="color: #9ca3af">-</span>
+            </template>
+          </vxe-column>
+          <vxe-column field="feeAmount" title="费用(元)" :min-width="110" align="right">
+            <template #default="{ row }">
+              <span v-if="row.feeRate !== null && row.feeRate !== undefined && row.amount !== null && row.amount !== undefined">
+                {{ (row.amount * row.feeRate / 100).toFixed(2) }}
+              </span>
+              <span v-else style="color: #9ca3af">-</span>
+            </template>
+          </vxe-column>
           <vxe-column field="status" title="支付状态" :min-width="120">
             <template #default="{ row }">{{
               dictConvert('pay_status', row.status) || '无'
