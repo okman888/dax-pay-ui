@@ -21,6 +21,7 @@ export enum ChannelEnum {
   YEE_PAY = 'yee_pay',
   UMS_PAY = 'ums_pay',
   CPCN_PAY = 'cpcn_pay',
+  ANTOM_PAY = 'antom_pay',
 }
 
 /**

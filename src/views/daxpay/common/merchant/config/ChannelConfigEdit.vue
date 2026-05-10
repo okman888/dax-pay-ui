@@ -31,6 +31,7 @@
   />
   <ums-pay-config-edit v-if="record.channel === ChannelEnum.UMS_PAY" ref="umsPay" @ok="ok" />
   <cpcn-pay-config-edit v-if="record.channel === ChannelEnum.CPCN_PAY" ref="cpcnPay" @ok="ok" />
+  <antom-pay-config-edit v-if="record.channel === ChannelEnum.ANTOM_PAY" ref="antomPay" @ok="ok" />
 </template>
 <script setup lang="ts">
   import { nextTick, ref } from 'vue'
@@ -53,6 +54,9 @@
   import DougongSubConfigEdit from '@/views/daxpay/common/channel/dougong/config/payment/DougongSubConfigEdit.vue'
   import UmsPayConfigEdit from '@/views/daxpay/common/channel/ums/config/UmsPayConfigEdit.vue'
   import CpcnPayConfigEdit from '@/views/daxpay/common/channel/cpcnpay/config/payment/CpcnSubConfigEdit.vue'
+  import AntomPayConfigEdit from '@/views/daxpay/common/channel/antompay/config/payment/AntomPayConfigEdit.vue'
+
+
 
   const { createMessage } = useMessage()
 
@@ -73,6 +77,9 @@
   const dougongSub = ref<any>()
   const umsPay = ref<any>()
   const cpcnPay = ref<any>()
+  const antomPay = ref<any>()
+
+
 
   // 事件
   const emits = defineEmits(['ok'])
@@ -147,8 +154,12 @@
           cpcnPay.value.init(record.value)
           break
         }
+        case ChannelEnum.ANTOM_PAY: {
+          antomPay.value.init(record.value)
+          break
+        }
         default: {
-          createMessage.info('暂未支持, 请期待...')
+          createMessage.info('MCH-暂未支持, 请期待...')
         }
       }
     })
