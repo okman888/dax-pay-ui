@@ -158,12 +158,8 @@
       confirmLoading.value = true
       update({
         ...form.value,
-        ...diffForm(
-          rawForm,
-          form.value,
-          'merchantPrivateKey',
-          'antomPublicKey',
-        ),
+        merchantPrivateKey: form.value.merchantPrivateKey || undefined,
+        antomPublicKey: form.value.antomPublicKey || undefined,
         mchNo: channelConfig.value.mchNo,
         appId: channelConfig.value.appId,
       })
